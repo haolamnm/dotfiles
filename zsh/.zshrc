@@ -1,99 +1,69 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
+#!/usr/bin/env zsh
+
+
+### POWERLEVEL10K INSTANT PROMPT
+# Ref: https://github.com/romkatv/powerlevel10k#instant-prompt
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# Set the directory we want to store zinit and plugins
-ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 
-# Download zinit, if it is not there yet
-if [ ! -d "$ZINIT_HOME" ]; then
-    mkdir -p "$(dirname $ZINIT_HOME)"
-    git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+### XDG STANDARDS
+# Ref: https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html
+export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+export XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
+export XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
+export XDG_STATE_HOME="${XDG_STATE_HOME:-$HOME/.local/state}"
+
+
+### ZSH CONFIGURATION DIRECTORY
+export ZSH_CONFIG_DIR="${ZSH_CONFIG_DIR:-$XDG_CONFIG_HOME/zsh}"
+
+
+### ZINIT
+# Ref: https://github.com/zdharma-continuum/zinit
+ZINIT_HOME="${XDG_DATA_HOME}/zinit/zinit.git"
+
+# Auto-install zinit if not present
+if [[ ! -d "$ZINIT_HOME" ]]; then
+    print -P "Installing zdharma-continuum/zinit"
+    mkdir -p "$(dirname "$ZINIT_HOME")"
+    git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME" && \
+        print -P "Installation successful" || \
+        print -P "The clone has failed"
 fi
-
-# Source zinit
 source "${ZINIT_HOME}/zinit.zsh"
 
-# Add in powerlevel10k
-zinit ice depth=1; zinit light romkatv/powerlevel10k
 
-# Add in zsh plugins
-zinit light zsh-users/zsh-syntax-highlighting
-zinit light zsh-users/zsh-completions
-zinit light zsh-users/zsh-autosuggestions
+### LOAD CONFIGURATION FILES
+# Create config directory if it doesn't exist
+[[ -d "$ZSH_CONFIG_DIR" ]] || mkdir -p "$ZSH_CONFIG_DIR"
 
-# Load completions
-autoload -U compinit && compinit
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-# Keybindings
-bindkey "^[[A" history-search-backward
-bindkey "^[[B" history-search-forward
-
-# History
-HISTSIZE=5000
-HISTFILE=~/.zsh_history
-SAVEHIST=$HISTSIZE
-HISTDUP=erase
-setopt appendhistory
-setopt sharehistory
-setopt hist_ignore_space # ignore command with leading spaces
-setopt hist_ignore_all_dups
-setopt hist_save_no_dups
-setopt hist_ignore_dups
-setopt hist_find_no_dups
-
-# Completion styling
-zstyle ":completion:*" matcher-list "m:{a-z}={A-Za-z}"
-zstyle ":completion:*" list-colors "${(s.:.)LS_COLORS}"
-zstyle ":completion:*" menu no
-zstyle ":fzf-tab:complete:cd:*" fzf-preview "ls --color $realpath"
-zstyle ":fzf-tab:complete:__zoxide_z:*" fzf-preview "ls --color $realpath"
-
-# Aliases
-alias ls="ls --color -CF"
-alias ll="ls --color -alF"
-alias la="ls --color -A"
-alias pip="uv pip"
-alias c="clear"
-alias cp="cp -i"
-alias mv="mv -i"
-alias rm="rm -i"
-alias h="history"
-alias gs="git status --short"
-alias gl="git log --oneline --decorate --graph --all"
-
-# Shell integration
-eval "$(fzf --zsh)"
-eval "$(zoxide init --cmd cd zsh)"
-
-# Paths
-export PATH="$HOME/.local/bin:$PATH"
-
-# Deactivate any existing venv before activating a new one
-function activate() {
-    if [ -n "$VIRTUAL_ENV" ]; then
-        deactivate
+# Note: Order matters - some configs depend on others
+local config_files=(
+    "$ZSH_CONFIG_DIR/plugins.zsh"      # Plugins (first)
+    "$ZSH_CONFIG_DIR/history.zsh"      # History configuration
+    "$ZSH_CONFIG_DIR/completions.zsh"  # Completion system
+    "$ZSH_CONFIG_DIR/keybindings.zsh"  # Key bindings
+    "$ZSH_CONFIG_DIR/aliases.zsh"      # Aliases
+    "$ZSH_CONFIG_DIR/functions.zsh"    # Custom functions
+    "$ZSH_CONFIG_DIR/integrations.zsh" # External tool integrations
+    "$ZSH_CONFIG_DIR/path.zsh"         # PATH configuration (last)
+)
+for config_file in "${config_files[@]}"; do
+    if [[ -f "$config_file" ]]; then
+        source "$config_file"
+    else
+        print -P "Warning: Config file not found: $config_file"
     fi
-    source "$1/bin/activate"
-}
+done
 
-# Start ssh-agent if not running and add key
-if ! pgrep -u "$USER" ssh-agent >/dev/null; then
-    eval "$(ssh-agent -s)"
-fi
 
-# Add key if not already added
-ssh-add -l &>/dev/null || ssh-add ~/.ssh/id_ed25519
+### POWERLEVEL10K CONFIGURATION
+# Run 'p10k configure' to customize prompt
+[[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
 
-# FNM Shell intergration
-FNM_PATH="/home/hlm/.local/share/fnm"
-if [ -d "$FNM_PATH" ]; then
-  export PATH="$FNM_PATH:$PATH"
-  eval "`fnm env`"
-fi
+
+### LOAD OVERRIDES
+[[ -f "$HOME/.zshrc.local" ]] && source "$HOME/.zshrc.local"
+[[ -f "$HOME/.zshenv" ]] && source "$HOME/.zshenv"
