@@ -75,15 +75,6 @@ eval "$(zoxide init --cmd cd zsh)"
 # Paths
 export PATH="$HOME/.local/bin:$PATH"
 
-# UV virtual environment
-export UV_DEFAULT_ENV="base"
-if [ -z "$VIRTUAL_ENV" ]; then
-    if [ ! -d "$HOME/.venv/$UV_DEFAULT_VENV" ]; then
-        uv venv "$HOME/.venv/$UV_DEFAULT_VENV"
-    fi
-    source "$HOME/.venv/$UV_DEFAULT_VENV/bin/activate"
-fi
-
 # Deactivate any existing venv before activating a new one
 function activate() {
     if [ -n "$VIRTUAL_ENV" ]; then
@@ -99,3 +90,10 @@ fi
 
 # Add key if not already added
 ssh-add -l &>/dev/null || ssh-add ~/.ssh/id_ed25519
+
+# FNM Shell intergration
+FNM_PATH="/home/hlm/.local/share/fnm"
+if [ -d "$FNM_PATH" ]; then
+  export PATH="$FNM_PATH:$PATH"
+  eval "`fnm env`"
+fi

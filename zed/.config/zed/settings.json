@@ -7,6 +7,7 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "show_edit_predictions": false,
   "ui_font_size": 18,
   "ui_font_family": "JetBrains Mono",
   "buffer_font_size": 16,
