@@ -42,10 +42,10 @@ source "${ZINIT_HOME}/zinit.zsh"
 # Note: Order matters - some configs depend on others
 local config_files=(
     "$ZSH_CONFIG_DIR/plugins.zsh"      # Plugins (first)
+    "$ZSH_CONFIG_DIR/aliases.zsh"      # Aliases
     "$ZSH_CONFIG_DIR/history.zsh"      # History configuration
     "$ZSH_CONFIG_DIR/completions.zsh"  # Completion system
     "$ZSH_CONFIG_DIR/keybindings.zsh"  # Key bindings
-    "$ZSH_CONFIG_DIR/aliases.zsh"      # Aliases
     "$ZSH_CONFIG_DIR/functions.zsh"    # Custom functions
     "$ZSH_CONFIG_DIR/integrations.zsh" # External tool integrations
     "$ZSH_CONFIG_DIR/path.zsh"         # PATH configuration (last)

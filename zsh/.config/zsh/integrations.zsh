@@ -28,9 +28,9 @@ if command -v fzf &>/dev/null; then
 
     # Use fd for better file listing (if available)
     if command -v fd &>/dev/null; then
-        export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+        export FZF_DEFAULT_COMMAND='fdfind --type f --hidden --follow --exclude .git'
         export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-        export FZF_ALT_C_COMMAND='fd --type d --hidden --follow --exclude .git'
+        export FZF_ALT_C_COMMAND='fdfind --type d --hidden --follow --exclude .git'
     elif command -v rg &>/dev/null; then
         # Fallback to ripgrep
         export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
@@ -38,9 +38,9 @@ if command -v fzf &>/dev/null; then
     fi
 
     # Preview files with bat or cat
-    if command -v bat &>/dev/null; then
+    if command -v batcat &>/dev/null; then
         export FZF_CTRL_T_OPTS="
-            --preview 'bat --style=numbers --color=always --line-range :500 {}'
+            --preview 'batcat --color=always --line-range :500 {}'
             --preview-window=right:60%:wrap
         "
     else

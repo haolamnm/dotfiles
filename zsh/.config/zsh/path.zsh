@@ -34,8 +34,8 @@ fi
 
 
 ### PAGER
-if command -v bat &>/dev/null; then
-    export PAGER="bat"
+if command -v batcat &>/dev/null; then
+    export PAGER="batcat"
     # export BAT_THEME="default"
 elif command -v less &>/dev/null; then
     export PAGER="less"
@@ -45,7 +45,7 @@ else
 fi
 
 # Man pages with color
-export MANPAGER="sh -c 'col -bx | bat -l man -p'" 2>/dev/null || export MANPAGER="less"
+export MANPAGER="sh -c 'batcat -l man -p'" 2>/dev/null || export MANPAGER="less"
 
 
 ### DEVELOPMENT VARIABLES

@@ -9,10 +9,6 @@ alias lsd="command ls --color=auto -d */"
 alias lsda="command ls --color=auto -d .*/"  # Include hidden directories
 
 
-### BAT
-alias bat="batcat"
-
-
 ### SAFETY
 alias rm="rm -i"
 alias cp="cp -i"
@@ -25,14 +21,12 @@ alias rmdir="rmdir -v"   # Verbose
 
 
 ### BAT
-if command -v bat &>/dev/null; then
-    alias cat="bat --style=auto"
-    alias catt="/usr/bin/cat"  # Original cat
-    alias bathelp="bat --list-themes && echo 'Set theme: export BAT_THEME=<theme>'"
+if command -v batcat &>/dev/null; then
+    alias bat="batcat --style=auto"
 fi
 
 # Quick file preview
-alias preview="fzf --preview 'bat --color=always --style=numbers --line-range=:500 {}'"
+alias preview="fzf --preview 'batcat --color=always --line-range=:500 {}'"
 
 
 ### SYSTEM & PROCESS MANAGEMENT
@@ -75,4 +69,4 @@ alias find="fdfind"
 
 
 ### NALA
-alias nala="apt"
+alias apt="nala"

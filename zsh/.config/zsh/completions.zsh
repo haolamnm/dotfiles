@@ -67,8 +67,8 @@ zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color=always $realpath'
 zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color=always $realpath'
 
 # Preview file contents when completing cat, bat, less, etc.
-zstyle ':fzf-tab:complete:(bat|cat|less|more|nano|vi|vim|nvim):*' \
-    fzf-preview 'bat --color=always --style=numbers --line-range=:500 $realpath 2>/dev/null || cat $realpath 2>/dev/null'
+zstyle ':fzf-tab:complete:(bat|batcat|cat|less|more|nano|vi|vim|nvim):*' \
+    fzf-preview 'batcat --color=always --line-range=:500 $realpath 2>/dev/null || cat $realpath 2>/dev/null'
 
 # Preview for git commands
 zstyle ':fzf-tab:complete:git-(add|diff|restore):*' fzf-preview \
@@ -94,7 +94,7 @@ zstyle ':fzf-tab:complete:(kill|ps):argument-rest' fzf-flags --preview-window=do
 
 # Preview for man pages
 zstyle ':fzf-tab:complete:(man|tldr):*' fzf-preview \
-    'tldr --color always $word 2>/dev/null || man $word 2>/dev/null | bat --color=always --plain --language=man'
+    'tldr --color always $word 2>/dev/null || man $word 2>/dev/null | batcat --color=always --plain --language=man'
 
 # Set fzf options for different contexts
 zstyle ':fzf-tab:*' fzf-flags --height=80% --layout=reverse --border --margin=1 --padding=1
