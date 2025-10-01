@@ -123,9 +123,9 @@ note() {
     mkdir -p "$notes_dir"
 
     if [[ -z "$1" ]]; then
-        "${EDITOR:-gnome-text-editor}" "$notes_file" >/dev/null 2>&1 & disown
+        echo "Usage: note <message>"
     else
-        echo "- [ ] [$(date +%H:%M)] $*" >> "$notes_file"
+        echo "- [$(date +%H:%M)] $*" >> "$notes_file"
         echo "Note added to $notes_file"
     fi
 }

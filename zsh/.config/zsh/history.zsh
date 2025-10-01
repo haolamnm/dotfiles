@@ -34,3 +34,15 @@ setopt HIST_NO_STORE          # Don't store 'history' or 'fc' commands
 setopt HIST_IGNORE_DUPS       # Don't record consecutive duplicate commands
 setopt HIST_BEEP              # Beep when accessing nonexistent history
 setopt INC_APPEND_HISTORY     # Write to history file immediately, not on exit
+
+
+### IGNORE
+# Bash shell
+export HISTIGNORE="ls:pwd:clear:note"
+
+# ZSH shell: Ignore some commands from history
+zshaddhistory() {
+  emulate -L zsh
+  [[ $1 == (note*) ]] && return 1
+  return 0
+}

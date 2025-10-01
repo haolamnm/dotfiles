@@ -5,8 +5,12 @@
 alias ls="ls --color=auto -CF"
 alias ll="ls --color=auto -alF"
 alias la="ls --color=auto -A"
-alias lsd="ls -d */"
-alias lsda="ls -d .*/"  # Include hidden directories
+alias lsd="command ls --color=auto -d */"
+alias lsda="command ls --color=auto -d .*/"  # Include hidden directories
+
+
+### BAT
+alias bat="batcat"
 
 
 ### SAFETY
