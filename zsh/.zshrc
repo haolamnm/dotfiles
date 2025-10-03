@@ -61,9 +61,18 @@ done
 
 ### POWERLEVEL10K CONFIGURATION
 # Run 'p10k configure' to customize prompt
-[[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
+[[ -f "$ZSH_CONFIG_DIR/.p10k.zsh" ]] && source "$ZSH_CONFIG_DIR/.p10k.zsh"
 
 
 ### LOAD OVERRIDES
 [[ -f "$HOME/.zshrc.local" ]] && source "$HOME/.zshrc.local"
 [[ -f "$HOME/.zshenv" ]] && source "$HOME/.zshenv"
+
+
+### CURSOR SHAPE BLOCK
+function zle-line-init {
+  emulate -L zsh
+  printf '%s' ${terminfo[smkx]}
+  print -n '\e[1 q'   # force block
+}
+zle -N zle-line-init

@@ -53,12 +53,15 @@ export MANPAGER="sh -c 'batcat -l man -p'" 2>/dev/null || export MANPAGER="less"
 # export PYTHONDONTWRITEBYTECODE=1  # Don't create .pyc files
 # export PYTHONUNBUFFERED=1         # Unbuffered output
 
+# Nano
+export EDITOR="nano"
+
 
 ### APPLICATION-SPECIFIC VARIABLES
 export FZF_DEFAULT_OPTS="${FZF_DEFAULT_OPTS:---height 60% --layout=reverse --border}"
 
 # Ripgrep config file
-export RIPGREP_CONFIG_PATH="$XDG_CONFIG_HOME/ripgrep/.ripgreprc"
+export RIPGREP_CONFIG_PATH="$XDG_CONFIG_HOME/ripgrep/config"
 
 # Less history file location
 export LESSHISTFILE="$XDG_CACHE_HOME/less/history"

@@ -1,12 +1,16 @@
 #!/usr/bin/env zsh
 
 
+### ADD FPATH
+fpath=($ZSH_CONFIG_DIR/completions $fpath)
+
+
 ### AUTOLOAD COMPLETION SYSTEM
 autoload -Uz compinit
 
 # Speed up compinit by checking cache once per day
 # Ref: https://gist.github.com/ctechols/ca1035271ad134841284
-if [[ -n ${ZDOTDIR}/.zcompdump(#qN.mh+24) ]]; then
+if [[ -n ${ZSH_CONFIG_DIR}/.zcompdump(#qN.mh+24) ]]; then
     compinit
 else
     compinit -C
