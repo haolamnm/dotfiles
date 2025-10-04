@@ -7,20 +7,24 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
-  "show_edit_predictions": false,
-  "ui_font_size": 18,
+  "features": {
+    "edit_prediction_provider": "copilot"
+  },
+  "show_edit_predictions": true,
+  "ui_font_size": 20,
   "ui_font_family": "JetBrains Mono",
-  "buffer_font_size": 16,
+  "buffer_font_size": 18,
   "buffer_font_family": "JetBrains Mono",
   "theme": {
     "mode": "system",
     "light": "Rosé Pine Dawn",
     "dark": "Rosé Pine"
   },
-  "autosave": "on_focus_change",
+  "autosave": "off",
   "languages": {
     "Python": {},
-    "C++": {}
+    "C++": {},
+    "Rust": {}
   },
   "telemetry": {
     "diagnostics": false,
