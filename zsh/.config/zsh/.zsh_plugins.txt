@@ -1,0 +1,8 @@
+### THEMES
+romkatv/powerlevel10k
+
+### CORE
+zsh-users/zsh-completions
+Aloxaf/fzf-tab
+zdharma-continuum/fast-syntax-highlighting
+zsh-users/zsh-autosuggestions

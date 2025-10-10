@@ -1,0 +1,3 @@
+--glob=!.git/
+--glob=!.venv/
+--glob=!node_modules/
