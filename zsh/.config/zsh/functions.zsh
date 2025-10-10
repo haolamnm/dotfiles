@@ -1,6 +1,17 @@
 #!/bin/zsh
 
 
+# Description: mkdir and cd into it
+# Usage: mkcd dir
+mkcd() {
+    if [[ -z "$1" ]]; then
+        echo "Usage: mkcd <directory>"
+        return 1
+    fi
+    mkdir -p "$1" && cd "$1" || return 1
+}
+
+
 # Description: Go up N directories
 # Usage: up 3
 up() {

@@ -99,10 +99,6 @@ export EDITOR="nano"
 export RIPGREP_CONFIG_PATH="$XDG_CONFIG_HOME/ripgrep/config"
 
 
-### GNUPG
-export GNUPGHOME="$XDG_DATA_HOME/gnupg"
-
-
 ### RUST - CARGO
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
 export RUSTUP_HOME="$XDG_DATA_HOME/rustup"

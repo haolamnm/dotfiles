@@ -77,5 +77,3 @@ function zle-line-init {
   print -n '\e[1 q'   # force block
 }
 zle -N zle-line-init
-
-. "$HOME/.local/share/../bin/env"
